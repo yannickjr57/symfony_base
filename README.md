@@ -1,6 +1,6 @@
 # Boilerplate Symfony 6.4
 
-Attention : Il vous faut PHP 8.2 pour faire fonctionner ce projet si vous avez PHP 8.1 utiliser la branche symfony64 du repository.
+Attention : Il vous faut PHP 8.1 pour faire fonctionner ce projet si vous avez PHP 8.1 utiliser la branche symfony64 du repository.
 
 ## Initialisation de votre IDE
 
