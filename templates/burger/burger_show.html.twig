@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+{% block header %}
+{% include '/header/_header.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% if burger==null %}
+        <h1>Aucun burger</h1>
+    {% else %}
+        <h1>  {{burger.id}} - {{ burger.nom }}</h1>
+    {% endif %}
+
+  
+{% endblock %}
+{% block footer %}
+{% include '/footer/_footer.html.twig' %}
+{% endblock %}
