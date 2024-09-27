@@ -16,6 +16,10 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
+    public function findAllImages(){
+        return $this->findAll();
+    }
+
     //    /**
     //     * @return Image[] Returns an array of Image objects
     //     */

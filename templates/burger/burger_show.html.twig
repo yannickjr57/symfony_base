@@ -5,11 +5,26 @@
 {% include '/header/_header.html.twig' %}
 {% endblock %}
 {% block content %}
-    {% if burger==null %}
-        <h1>Aucun burger</h1>
-    {% else %}
-        <h1>  {{burger.id}} - {{ burger.nom }}</h1>
-    {% endif %}
+<h1>Burger : </h1>
+<img src="{{ asset('img/' ~ burger.image.name) }}" alt="Image de {{ burger.image.name }}">
+<p>nom : {{ burger.name }}</p>
+<p>prix : {{ burger.price }} euros</p>
+<p>pain : {{ burger.pain.name }}</p>
+<h3>Sauces: </h3>
+<ul>
+
+    {% for sauce in burger.getSauces() %}
+        <li>{{ sauce.getName() }}</li>
+    {% endfor %}
+</ul>
+<h3>Oignons: </h3>
+<ul>
+
+    {% for oignon in burger.getOignons() %}
+        <li>{{ oignon.getName() }}</li>
+    {% endfor %}
+</ul>
+
 
   
 {% endblock %}

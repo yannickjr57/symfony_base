@@ -16,6 +16,21 @@ class Image
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
+    // In Image.php
+#[ORM\OneToOne(mappedBy: 'image', cascade: ['persist', 'remove'])]
+private ?Burger $burger = null;
+
+public function setBurger(?Burger $burger): self
+{
+    $this->burger = $burger;
+    return $this;
+}
+
+public function getBurger(): ?Burger
+{
+    return $this->burger;
+}
+
     public function getId(): ?int
     {
         return $this->id;

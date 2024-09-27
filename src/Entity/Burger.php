@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BurgerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: BurgerRepository::class)]
 class Burger
@@ -24,20 +26,28 @@ class Burger
     private ?Pain $pain = null;
 
     #[ORM\ManyToMany(targetEntity: Oignon::class, inversedBy: 'burgers')]
+    private Collection $oignons;
 
-    private ?Oignon $oignons;
+   
 
     #[ORM\ManyToMany(targetEntity: Sauce::class, inversedBy: 'burgers')]
 
-    private ?Sauce $sauces;
+    private Collection $sauces;
+    
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Image $image;
 
-  #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'burgers')]
-    private ?Commentaire $commentaires;
+ // #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'burgers')]
+//    private Collection $commentaires;
 
-
+    public function __construct()
+    {
+        $this->oignons = new ArrayCollection(); // Initialize the collection
+        $this->sauces = new ArrayCollection();
+      
+    }
     public function getPain(): ?Pain
     {
         return $this->pain;
@@ -49,25 +59,32 @@ class Burger
         return $this;
     }
 
-    public function getOignons(): ?Oignon
+    public function getOignons(): Collection
+
     {
         return $this->oignons;
     }
 
-    public function setOignons(?Oignon $oignons): static
+    public function setOignons(Oignon $oignon): static
     {
-        $this->oignons = $oignons;
+        if (!$this->oignons->contains($oignon)) {
+            $this->oignons->add($oignon);
+        }
+    
         return $this;
     }
 
-    public function getSauces(): ?Sauce
+    public function getSauces(): Collection
     {
         return $this->sauces;
     }
 
     public function setSauces(?Sauce $sauces): static
     {
-        $this->sauces = $sauces;
+        if (!$this->sauces->contains($sauces)) {
+            $this->sauces->add($sauces);
+        }
+    
         return $this;
     }
 
@@ -82,16 +99,16 @@ class Burger
         return $this;
     }
 
-    public function getCommentaires(): ?Commentaire
-    {
-        return $this->commentaires;
-    }
+    //public function getCommentaires(): ?Commentaire
+    //{
+        //return $this->commentaires;
+    //}
 
-    public function setCommentaires(?Commentaire $commentaires): static
-    {
-        $this->commentaires = $commentaires;
-        return $this;
-    }
+    //public function setCommentaires(?Commentaire $commentaires): static
+    //{
+       // $this->commentaires = $commentaires;
+       // return $this;
+    //}
     
 
     public function getId(): ?int

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Oignon;
+use App\Repository\OignonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OignonController extends AbstractController
@@ -25,17 +26,11 @@ class OignonController extends AbstractController
         return new Response('Oignon ajouté avec succès !');
     }
     #[Route('/oignon', name: 'app_oignon')]
-    public function index(): Response
+    public function index(OignonRepository $oignonRepository): Response
     {
-        return $this->render('oignon/index.html.twig', [
-            'controller_name' => 'OignonController',
-        ]);
+       $oignons = $oignonRepository->findAll();
+        return $this->render('oignon/index.html.twig', ['oignons' => $oignons]);
     }
 
-    #[Route('/oignon/liste', name: 'app_oignon_liste')]
-    public function listeOignons()
-    {
-        $oignons= $this->entityManager->getRepository(Oignon::class)->findAll();
-        return $this->render('oignon/liste.html.twig', ['oignons' => $oignons]);
-    }
+ 
 }

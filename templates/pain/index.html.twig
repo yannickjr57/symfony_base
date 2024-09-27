@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello PainController!{% endblock %}
-
+{% block header %}
+{% include '/header/_header.html.twig' %}
+{% endblock %}
 {% block content %}
 
 <h1>Liste des Pains</h1>
@@ -12,4 +14,7 @@
     </ul>
     <p>Test: {{ test }}</p>
 
+{% endblock %}
+{% block footer %}
+{% include '/footer/_footer.html.twig' %}
 {% endblock %}

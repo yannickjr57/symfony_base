@@ -6,11 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Sauce;
+use App\Repository\SauceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 class SauceController extends AbstractController
 {
-    private $entityManager;
+    private ManagerRegistry $registry;
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+    }
 
     #[Route('/sauce/create', name: 'app_sauce_create')]
     public function create(EntityManagerInterface $entityManager) : Response
@@ -25,17 +33,11 @@ class SauceController extends AbstractController
         return new Response('Sauce ajoutée avec succès !');
     }
     #[Route('/sauce', name: 'app_sauce')]
-    public function index(): Response
+    public function index(SauceRepository $sauceRepository): Response
     {
-        return $this->render('sauce/index.html.twig', [
-            'controller_name' => 'SauceController',
-        ]);
+        $sauces = $sauceRepository->findAllSauces();
+        return $this->render('sauce/index.html.twig', ['sauces' => $sauces]);
     }
 
-    #[Route('/sauce/liste', name: 'app_sauce_liste')]
-    public function listeSauces()
-    {
-        $sauces= $this->entityManager->getRepository(Sauce::class)->findAll();
-        return $this->render('sauce/liste.html.twig', ['sauces' => $sauces]);
-    }
+   
 }

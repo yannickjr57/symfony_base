@@ -8,25 +8,30 @@ use Doctrine\Persistence\ObjectManager;
 
 class ImageFixtures extends Fixture
 {
+    public const IMAGE_REFERENCE = 'image_';
     public function load(ObjectManager $manager): void
     {
         $images = [
-            'burger1.jpg',
-            'burger2.jpg',
-            'burger3.jpg',
-            'burger4.jpg',
-            'burger5.jpg',
-            'burger6.jpg',
-            'burger7.jpg',
-            'burger8.jpg',
+            'burger1.jpeg',
+            'burger2.jpeg',
+            'burger1.jpeg',
+            'burger1.jpeg',
+            'burger3.jpeg',
+            'burger2.jpeg',
+            'burger3.jpeg',
+            'burger1.jpeg',
         ];
 
-        foreach ($images as $imageName) {
+       foreach($images as $index => $imageName) {
             $image = new Image();
             $image->setName($imageName);
             $manager->persist($image);
+
+            $this->addReference(self::IMAGE_REFERENCE . $index, $image);
         }
 
         $manager->flush();
     }
 }
+
+

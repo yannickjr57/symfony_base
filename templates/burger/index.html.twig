@@ -6,12 +6,13 @@
 {% include '/header/_header.html.twig' %}
 {% endblock %}
 {% block content %}
-<h1> Liste des burgers:</h1>
+<h1> Burger : </h1>
 <br>
 <ul>
     {% for burger in burgers %}
         <li>
-            {{ burger.id}} - {{ burger.nom }}
+     {{ burger.id }} - {{ burger.name }}
+
         </li>
     {% endfor %}
 </ul>

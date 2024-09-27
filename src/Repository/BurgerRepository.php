@@ -15,6 +15,15 @@ class BurgerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Burger::class);
     }
+    public function findAllBurgers()
+    {
+        return $this->findAll();
+    }
+
+    public function findById(int $id){
+
+        return $this->find($id);
+    }
 
     //    /**
     //     * @return Burger[] Returns an array of Burger objects

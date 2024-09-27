@@ -16,6 +16,10 @@ class SauceRepository extends ServiceEntityRepository
         parent::__construct($registry, Sauce::class);
     }
 
+    public function findAllSauces(){
+        return $this->findAll();
+    }
+
     //    /**
     //     * @return Sauce[] Returns an array of Sauce objects
     //     */
