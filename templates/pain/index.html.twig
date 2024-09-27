@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PainController!{% endblock %}
+
+{% block content %}
+
+<h1>Liste des Pains</h1>
+    <ul>
+        {% for pain in pains %}
+            <li>{{ pain.name }}</li>
+        {% endfor %}
+    </ul>
+    <p>Test: {{ test }}</p>
+
+{% endblock %}

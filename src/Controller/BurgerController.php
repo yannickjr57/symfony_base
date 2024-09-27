@@ -5,9 +5,26 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Burger;
 
 class BurgerController extends AbstractController
 {
+    private $entityManager;
+
+    #[Route('/burger/create', name: 'app_burger_create')]
+
+    public function create(EntityManagerInterface $entityManager) : Response
+    {
+        $burger = new Burger();
+        $burger->setName('Burger classique');
+     
+        // Persister et sauvegarder le burger
+        $entityManager->persist($burger);
+        $entityManager->flush();
+     
+        return new Response('Oignon créé avec succès !');
+    }
     const burgers=[
         ["id" => 1, "nom" => "Le Classique"],
         ["id" => 2, "nom" => "Le Spicy"],
@@ -37,4 +54,13 @@ class BurgerController extends AbstractController
             "burger"=> $burger
         ]);
     }
+
+    
+#[Route('/burgers/liste', name: 'app_burger_liste')]
+    public function listeBurgers()
+    {
+        $burgers= $this->entityManager->getRepository(Burger::class)->findAll();
+        return $this->render('burger/liste.html.twig', ['burger' => $burgers]);
+    }
+
 }
