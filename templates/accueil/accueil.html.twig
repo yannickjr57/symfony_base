@@ -10,7 +10,11 @@
 {% block content %}
 
     <img src="{{asset('img/images.jpeg')}}" alt="" width="250" />
-    
+    <!-- templates/index.html.twig -->
+<div data-controller="hello">
+  <input data-target="hello.name" type="text" placeholder="Enter your name">
+  <button data-action="click->hello#greet">Greet</button>
+</div>
 {% endblock %}
 {% block footer %}
 {% include '/footer/_footer.html.twig' %}

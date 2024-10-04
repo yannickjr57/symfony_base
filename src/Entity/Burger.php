@@ -65,10 +65,12 @@ class Burger
         return $this->oignons;
     }
 
-    public function setOignons(Oignon $oignon): static
+    public function setOignons(Collection $oignons): static
     {
-        if (!$this->oignons->contains($oignon)) {
-            $this->oignons->add($oignon);
+        foreach ($oignons as $oignon) {
+            if (!$this->oignons->contains($oignon)) {
+                $this->oignons->add($oignon);
+            }
         }
     
         return $this;
@@ -79,15 +81,18 @@ class Burger
         return $this->sauces;
     }
 
-    public function setSauces(?Sauce $sauces): static
+    
+
+    public function setSauces(Collection $sauces): static
     {
-        if (!$this->sauces->contains($sauces)) {
-            $this->sauces->add($sauces);
+        foreach ($sauces as $sauce) {
+            if (!$this->sauces->contains($sauce)) {
+                $this->sauces->add($sauce);
+            }
         }
     
         return $this;
     }
-
     public function getImage(): ?Image
     {
         return $this->image;

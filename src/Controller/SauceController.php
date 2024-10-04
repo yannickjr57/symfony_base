@@ -9,7 +9,8 @@ use App\Entity\Sauce;
 use App\Repository\SauceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\SauceType;
 
 class SauceController extends AbstractController
 {
@@ -20,17 +21,23 @@ class SauceController extends AbstractController
         $this->registry = $registry;
     }
 
-    #[Route('/sauce/create', name: 'app_sauce_create')]
-    public function create(EntityManagerInterface $entityManager) : Response
-    {
+    #[Route('/sauce/new', name: 'Saucecreation', methods: ['GET', 'POST'])]
+    public function creation(Request $request, EntityManagerInterface $em): Response{
+
         $sauce = new Sauce();
-        $sauce->setName('Sauce de test');
- 
-        // Persister et sauvegarder la sauce
-        $entityManager->persist($sauce);
-        $entityManager->flush();
- 
-        return new Response('Sauce ajoutée avec succès !');
+        $form = $this->createForm(SauceType::class, $sauce);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($sauce);
+            $em->flush();
+            return $this->redirectToRoute('app_sauce');
+        }
+
+        return $this->render('sauce/creation.html.twig', [
+            'sauce' => $sauce,
+            'form' => $form->createView()
+        ]);
+        
     }
     #[Route('/sauce', name: 'app_sauce')]
     public function index(SauceRepository $sauceRepository): Response

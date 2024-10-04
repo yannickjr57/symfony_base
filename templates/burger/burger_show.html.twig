@@ -6,7 +6,11 @@
 {% endblock %}
 {% block content %}
 <h1>Burger : </h1>
-<img src="{{ asset('img/' ~ burger.image.name) }}" alt="Image de {{ burger.image.name }}">
+{% if burger.image is not null  %}
+
+<img src="{{ asset('img/' ~ burger.image.name ) }}" alt="Image de burger">
+
+{% endif %}
 <p>nom : {{ burger.name }}</p>
 <p>prix : {{ burger.price }} euros</p>
 <p>pain : {{ burger.pain.name }}</p>

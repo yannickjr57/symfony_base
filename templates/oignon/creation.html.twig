@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} | Ajout Oignon{% endblock %}
+ {% block header %}
+{% include '/header/_header.html.twig' %}
+{% endblock %}
+{% block content %}
+<h1> Creation d'Oignon</h1>
+    {{ form(form) }}
+{% endblock %}
+{% block footer %}
+{% include '/footer/_footer.html.twig' %}
+{% endblock %}
